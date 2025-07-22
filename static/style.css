@@ -1,0 +1,85 @@
+/* risk_management/static/style.css */
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f2f5; /* Warna latar belakang sedikit lebih lembut */
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+.card {
+    border: none;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border-radius: 0.75rem; /* Sudut lebih bulat */
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Kartu Ringkasan di Dasbor */
+.card-summary {
+    border: none;
+    color: white;
+}
+.card-summary .card-title {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+.card-summary .card-footer {
+    background-color: rgba(0,0,0,0.15);
+    border-top: 1px solid rgba(255,255,255,0.2);
+}
+.card-summary .card-footer a {
+    text-decoration: none;
+    transition: letter-spacing 0.3s ease;
+}
+.card-summary .card-footer a:hover {
+    letter-spacing: 1px;
+}
+
+/* Gradien untuk Kartu Ringkasan */
+.card-summary-primary {
+    background: linear-gradient(45deg, #0d6efd, #0dcaf0);
+}
+.card-summary-warning {
+    background: linear-gradient(45deg, #ffc107, #fd7e14);
+}
+.card-summary-success {
+    background: linear-gradient(45deg, #198754, #20c997);
+}
+
+
+/* Beri tinggi minimum pada chart agar terlihat lebih besar di dasbor */
+#statusChart, #impactChart {
+    min-height: 350px;
+    width: 100% !important;
+}
+
+.badge {
+    padding: 0.5em 0.75em;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.nav-link {
+    transition: all 0.2s ease-in-out;
+}
+
+.nav-link.active, .nav-link:hover {
+    color: #fff !important;
+    transform: scale(1.05);
+}

@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+
+{% block title %}Daftar Risiko - Manajemen Risiko{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Daftar Semua Risiko</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <a href="{{ url_for('add_risk') }}" class="btn btn-primary">
+            <i class="bi bi-plus-circle-fill"></i> Tambah Risiko Baru
+        </a>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Judul</th>
+                        <th scope="col">Kategori</th>
+                        <th scope="col">Probabilitas</th>
+                        <th scope="col">Dampak</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for risk in risks %}
+                    <tr>
+                        <td>{{ risk.title }}</td>
+                        <td>{{ risk.category }}</td>
+                        <td>
+                            {% set prob_color = 'success' if risk.probability == 'Rendah' else 'warning' if risk.probability == 'Sedang' else 'danger' %}
+                            <span class="badge bg-{{ prob_color }}">{{ risk.probability }}</span>
+                        </td>
+                        <td>
+                            {% set impact_color = 'success' if risk.impact == 'Rendah' else 'warning' if risk.impact == 'Sedang' else 'danger' %}
+                            <span class="badge bg-{{ impact_color }}">{{ risk.impact }}</span>
+                        </td>
+                        <td>
+                            {% set status_color = 'success' if risk.status == 'Tertutup' else 'warning' if risk.status == 'Terbuka' else 'info' %}
+                            <span class="badge bg-{{ status_color }}">{{ risk.status }}</span>
+                        </td>
+                        <td>
+                            <a href="{{ url_for('edit_risk', risk_id=risk.id) }}" class="btn btn-sm btn-outline-secondary me-1" title="Edit">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ risk.id }}" title="Hapus">
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <!-- Modal Hapus -->
+                    <div class="modal fade" id="deleteModal{{ risk.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ risk.id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModalLabel{{ risk.id }}">Konfirmasi Hapus</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Apakah Anda yakin ingin menghapus risiko: <strong>{{ risk.title }}</strong>?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                    <form action="{{ url_for('delete_risk', risk_id=risk.id) }}" method="POST" class="d-inline">
+                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center">Belum ada data risiko. Silakan tambahkan risiko baru.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
